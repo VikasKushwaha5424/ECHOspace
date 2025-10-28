@@ -1,0 +1,1009 @@
+// --- Import Fonts ---
+// 'Inter' font is imported in public/index.html
+
+// --- Mixins ---
+@mixin mobile {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+// --- NEW HIGH-CONTRAST COLOR PALETTE V4 (iOS Inspired) ---
+$ios-blue-light: #007AFF;    // Standard Blue for Light Mode
+$ios-blue-dark: #0A84FF;     // Brighter Blue for Dark Mode
+$ios-light-gray: #E5E5EA;   // Receiver Bubble Light
+$ios-dark-gray1: #2C2C2E;    // Receiver Bubble Dark
+$ios-dark-gray2: #3A3A3C;    // Secondary Button Dark
+$brand-red: #ff3d71;          // Error
+$brand-green: #34C759;        // Online (iOS Green)
+
+// --- Theme Variables ---
+body {
+  // --- Light Mode (Default) ---
+  --font-primary: "Inter", "Open Sans", sans-serif;
+
+  // Backgrounds
+  --bg-sidebar: #f7f7f7;        // Clean light grey
+  --bg-main: #ffffff;           // Pure white
+  --bg-input: #f7f7f7;        // Clean light grey input bar
+  --bg-hover: #f0f0f0;          // Hover state
+  --bg-modal: rgba(0, 0, 0, 0.4);
+  --bg-modal-content: #ffffff;
+  --bg-settings-menu: #ffffff;
+  --bg-active-chat: #f0f0f0;
+
+  // Text
+  --text-primary: #000000;    // Pure black for max contrast
+  --text-secondary: #8A8A8E;   // iOS secondary grey
+  --text-inverted: #ffffff;
+  --text-link: $ios-blue-light;
+
+  // Borders
+  --border-color: #D1D1D6;
+
+  // Accents
+  --accent-primary: $ios-blue-light;
+  --accent-secondary: $ios-blue-light;
+  --accent-online: $brand-green;
+  --accent-offline: #AEAEB2; // Lighter grey for offline
+  --accent-error: $brand-red;
+
+  // --- CRITICAL FIX V4: Chat Bubbles ---
+  --chat-bubble-owner: $ios-blue-light;      // SOLID BLUE
+  --chat-bubble-owner-text: #ffffff;         // WHITE TEXT
+  --chat-bubble-other: $ios-light-gray;    // SOLID LIGHT GREY
+  --chat-bubble-other-text: #000000;        // BLACK TEXT
+
+  // --- CRITICAL FIX V4: Modal Buttons ---
+  --btn-primary-bg: $ios-blue-light;       // SOLID BLUE
+  --btn-primary-text: #ffffff;         // WHITE TEXT
+  --btn-primary-hover: #{darken($ios-blue-light, 10%)};
+  --btn-secondary-bg: $ios-light-gray;    // SOLID LIGHT GREY
+  --btn-secondary-text: #000000;        // BLACK TEXT
+  --btn-secondary-hover: #{darken($ios-light-gray, 5%)};
+
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.dark {
+  // --- Dark Mode ---
+  --bg-sidebar: #1C1C1E;        // iOS Dark Grey
+  --bg-main: #000000;           // Pure black
+  --bg-input: #1C1C1E;        // iOS Dark Grey input bar
+  --bg-hover: #2C2C2E;          // Hover state
+  --bg-modal: rgba(0, 0, 0, 0.6);
+  --bg-modal-content: #1C1C1E;
+  --bg-settings-menu: #2C2C2E;
+  --bg-active-chat: #2C2C2E;
+
+  // Text
+  --text-primary: #ffffff;    // Pure white
+  --text-secondary: #8E8E93;   // iOS secondary grey (dark)
+  --text-inverted: #000000;
+  --text-link: $ios-blue-dark;
+
+  // Borders
+  --border-color: #3A3A3C;
+
+  // Accents
+  --accent-primary: $ios-blue-dark;
+  --accent-secondary: $ios-blue-dark;
+  --accent-online: $brand-green;
+  --accent-offline: #636366; // Darker grey for offline
+  --accent-error: $brand-red;
+
+  // --- CRITICAL FIX V4: Chat Bubbles ---
+  --chat-bubble-owner: $ios-blue-dark;      // SOLID BRIGHT BLUE
+  --chat-bubble-owner-text: #ffffff;         // WHITE TEXT
+  --chat-bubble-other: $ios-dark-gray1;    // SOLID DARK GREY
+  --chat-bubble-other-text: #ffffff;        // WHITE TEXT
+
+  // --- CRITICAL FIX V4: Modal Buttons ---
+  --btn-primary-bg: $ios-blue-dark;       // SOLID BRIGHT BLUE
+  --btn-primary-text: #ffffff;         // WHITE TEXT
+  --btn-primary-hover: #{darken($ios-blue-dark, 10%)};
+  --btn-secondary-bg: $ios-dark-gray2;    // SOLID DARK GREY (slightly lighter)
+  --btn-secondary-text: #ffffff;        // WHITE TEXT
+  --btn-secondary-hover: #{lighten($ios-dark-gray2, 5%)};
+
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+// --- Base Styles ---
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// --- Static Login/Register Pages ---
+body.login-theme,
+body.register-theme {
+  // Use the static light theme styles defined above
+  --font-primary: "Inter", "Open Sans", sans-serif;
+  --bg-sidebar: #f7f7f7;
+  --bg-main: #ffffff;
+  --bg-input: #f7f7f7;
+  --bg-hover: #f0f0f0;
+  --bg-modal: rgba(0, 0, 0, 0.4);
+  --bg-modal-content: #ffffff;
+  --bg-settings-menu: #ffffff;
+  --bg-active-chat: #f0f0f0;
+  --text-primary: #000000;
+  --text-secondary: #8A8A8E;
+  --text-inverted: #ffffff;
+  --text-link: $ios-blue-light;
+  --border-color: #D1D1D6;
+  --accent-primary: $ios-blue-light;
+  --accent-secondary: $ios-blue-light;
+  --accent-online: $brand-green;
+  --accent-offline: #AEAEB2;
+  --accent-error: $brand-red;
+  --chat-bubble-owner: $ios-blue-light;
+  --chat-bubble-owner-text: #ffffff;
+  --chat-bubble-other: #e5e5ea;
+  --chat-bubble-other-text: #000000;
+  --btn-primary-bg: $ios-blue-light;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #{darken($ios-blue-light, 10%)};
+  --btn-secondary-bg: #e5e5ea;
+  --btn-secondary-text: #000000;
+  --btn-secondary-hover: #{darken(#e5e5ea, 5%)};
+
+  background: linear-gradient(to right, #f0f2f5, #e6e9ed) !important;
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// --- Scrollbar Styling ---
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-sidebar);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+  &:hover {
+    background: var(--text-secondary);
+  }
+}
+
+// --- Login / Register Pages ---
+.login-page,
+.register-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  font-family: "Inter", "Open Sans", sans-serif;
+
+  @include mobile {
+    flex-direction: column;
+  }
+
+  // Left Side (White part with form)
+  .form-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: #ffffff; // Always white
+
+    h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 350px;
+
+      label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: -8px;
+      }
+
+      input {
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: "Inter", "Open Sans", sans-serif;
+
+        &::placeholder { color: #999; }
+
+        &:focus {
+          outline: none;
+          border-color: $ios-blue-light; // Use static blue
+          box-shadow: 0 0 0 3px rgba($ios-blue-light, 0.2);
+        }
+      }
+
+      .form-button {
+        background-color: $ios-blue-light; // Use static blue
+        color: #ffffff;
+        padding: 12px;
+        font-weight: 700;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-top: 8px;
+
+        &:hover {
+          background-color: #{darken($ios-blue-light, 10%)};
+        }
+
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    p {
+      color: #333;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .link {
+      color: $ios-blue-light; // Use static blue
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover { text-decoration: underline; }
+    }
+
+    .terms-btn {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 12px;
+      margin-top: 30px;
+      cursor: pointer;
+      text-decoration: underline;
+
+      &:hover { color: #000; }
+    }
+
+    .er {
+      color: $brand-red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+
+  // Right Side (Dark part with logo)
+  .logo-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000000; // Use static black
+    padding: 40px;
+
+    @include mobile {
+      order: -1;
+      flex: 0.5;
+      min-height: 200px;
+    }
+
+    .echo-logo-text {
+      font-size: 48px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .echo-logo-img {
+      width: 80%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 20px;
+    }
+  }
+}
+
+// --- Terms & Background Modals ---
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-modal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal, .confirm-modal, .bg-selector-modal {
+  background: var(--bg-modal-content);
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: var(--shadow-medium);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  animation: modal-pop 0.2s ease forwards;
+}
+@keyframes modal-pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal h2, .confirm-modal h2, .bg-selector-modal h2 {
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.modal .modal-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  padding-right: 10px; // For scrollbar
+  b { color: var(--text-primary); }
+  ul { padding-left: 20px; margin-top: 10px; }
+  li { margin-bottom: 5px; }
+}
+
+// --- FIX V4 for modal buttons ---
+.modal .close-btn, .bg-selector-modal .close-btn {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  align-self: flex-end;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+  font-family: var(--font-primary);
+  font-size: 15px;
+
+  &:hover { background-color: var(--btn-primary-hover); }
+}
+
+.confirm-modal {
+  max-width: 400px;
+  p {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .confirm-modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: var(--font-primary);
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+
+    #confirm-delete {
+      background-color: $brand-red;
+      color: #ffffff;
+      &:hover { background-color: darken($brand-red, 10%); }
+    }
+
+    // --- FIX V4 for modal buttons ---
+    #cancel-delete {
+      background-color: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      &:hover { background-color: var(--btn-secondary-hover); }
+    }
+  }
+}
+
+// --- Main App Home Page ---
+.home {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  background-color: var(--bg-main);
+  @include mobile { flex-direction: column; }
+}
+
+// --- Sidebar ---
+.sidebar {
+  flex: 1;
+  max-width: 360px;
+  min-width: 300px;
+  background-color: var(--bg-sidebar);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  @include mobile { max-width: 100%; width: 100%; height: auto; }
+}
+
+// --- Navbar ---
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-main);
+  height: 70px;
+  padding: 10px 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  box-shadow: none; // Cleaner look
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  z-index: 10;
+
+  .logo {
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--accent-primary);
+  }
+
+  .user {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    position: relative;
+
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      @media screen and (max-width: 900px) { display: none; }
+    }
+
+    .settings-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      padding: 6px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s, color 0.2s;
+
+      svg { stroke: currentColor; width: 22px; height: 22px; }
+
+      &:hover {
+        background-color: var(--bg-hover);
+        color: var(--text-primary);
+      }
+    }
+
+    .settings-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: var(--bg-settings-menu);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-medium);
+      z-index: 100;
+      width: 240px;
+      overflow: hidden;
+      padding: 8px;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 10px 12px;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+        text-align: left;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        font-family: var(--font-primary);
+
+        svg {
+          width: 18px;
+          height: 18px;
+          stroke: var(--text-secondary);
+        }
+
+        &:hover {
+          background-color: var(--bg-hover);
+        }
+      }
+    }
+  }
+}
+
+// --- Search ---
+.search {
+  padding: 16px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-color);
+
+  .searchForm {
+    input {
+      background-color: var(--bg-main);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      outline: none;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &::placeholder { color: var(--text-secondary); }
+
+      &:focus {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 3px rgba($ios-blue-light, 0.2); // Use static blue
+      }
+    }
+  }
+
+  .tip {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    text-align: center;
+  }
+}
+
+// --- Chats List ---
+.chats {
+  flex-grow: 1;
+  overflow-y: auto;
+
+  .userChat {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+    position: relative;
+
+    &.active {
+      background-color: var(--bg-active-chat);
+    }
+
+    &:hover {
+      background-color: var(--bg-hover);
+      .delete-chat-button {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .userChatInfo {
+      overflow: hidden;
+      flex-grow: 1;
+
+      span {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 2px;
+      }
+    }
+
+    .delete-chat-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      padding: 5px;
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+
+      svg {
+        stroke: currentColor;
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        background-color: var(--bg-hover);
+        color: var(--accent-error);
+      }
+    }
+  }
+}
+
+// --- Avatar Component Styling ---
+.avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-inverted);
+
+  &.avatar-small { width: 40px; height: 40px; font-size: 18px; }
+  &.avatar-medium { width: 50px; height: 50px; font-size: 22px; }
+  &.avatar-large { width: 80px; height: 80px; font-size: 32px; }
+
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .avatar-initials {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // Simple gradient using fixed blue colors
+    background: linear-gradient(135deg, $ios-blue-light, $ios-blue-dark);
+  }
+
+  .avatar-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--accent-online);
+    border: 2px solid var(--bg-main); // Use main bg for border
+    &.avatar-small { width: 12px; height: 12px; bottom: 1px; right: 1px; }
+    &.avatar-medium { width: 14px; height: 14px; bottom: 2px; right: 2px; }
+    &.offline { background-color: var(--accent-offline); }
+  }
+}
+
+// --- Chat Area ---
+.chat {
+  flex: 3;
+  background-color: var(--bg-main);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// --- Chat Info Header ---
+.chatInfo {
+  height: 70px;
+  background-color: var(--bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  box-shadow: none; // Cleaner look
+  z-index: 2;
+
+  span {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .chatIcons { display: flex; gap: 15px; }
+}
+
+// --- Messages Area ---
+.messages {
+  background-color: var(--bg-main);
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  padding: 24px;
+  flex-grow: 1;
+  overflow-y: auto;
+  transition: background-image 0.3s ease, background-color 0.3s ease;
+
+  &.has-bg {
+    background-blend-mode: overlay;
+    background-color: rgba(255, 255, 255, 0.7); // Light mode overlay
+  }
+
+  body.dark &.has-bg {
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.6); // Dark mode overlay
+  }
+}
+
+// --- Message Component ---
+.message {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  max-width: 70%;
+
+  @include mobile { max-width: 85%; }
+
+  .messageInfo {
+    flex-shrink: 0;
+    align-self: flex-end;
+  }
+
+  .messageContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    p {
+      color: var(--chat-bubble-other-text);
+      background-color: var(--chat-bubble-other);
+      padding: 10px 16px;
+      border-radius: 18px 18px 18px 4px;
+      max-width: max-content;
+      font-size: 15px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      box-shadow: var(--shadow-light);
+    }
+
+    img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 12px;
+      margin-top: 4px;
+      box-shadow: var(--shadow-light);
+    }
+
+    .message-time {
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding-left: 5px;
+    }
+  }
+
+  &.owner {
+    flex-direction: row-reverse;
+    margin-left: auto;
+
+    .messageContent {
+      align-items: flex-end;
+
+      p {
+        background: var(--chat-bubble-owner);
+        color: var(--chat-bubble-owner-text);
+        border-radius: 18px 18px 4px 18px;
+      }
+
+      .message-time {
+        padding-left: 0;
+        padding-right: 5px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+
+// --- Input Bar ---
+.input {
+  background-color: var(--bg-input);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+
+  input[type="text"] {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 24px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-family: var(--font-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder { color: var(--text-secondary); }
+
+    &:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba($ios-blue-light, 0.2); // Use static blue
+    }
+  }
+
+  .send {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .input-icon-label {
+      cursor: pointer;
+      color: var(--text-secondary);
+      padding: 8px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, background-color 0.2s;
+
+      svg {
+        stroke: currentColor;
+        width: 22px;
+        height: 22px;
+      }
+
+      &:hover {
+        color: var(--text-primary);
+        background-color: var(--bg-hover);
+      }
+    }
+
+    .send-button {
+      border: none;
+      padding: 10px;
+      color: var(--btn-primary-text);
+      background-color: var(--btn-primary-bg);
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-light);
+      transition: background-color 0.2s, transform 0.2s ease, box-shadow 0.2s;
+
+      svg {
+        stroke: currentColor;
+        width: 24px;
+        height: 24px;
+        transform: translateX(1px) translateY(-1px);
+      }
+
+      &:hover {
+        background-color: var(--btn-primary-hover);
+        box-shadow: 0 4px 12px rgba($ios-blue-light, 0.4); // Use static blue
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+// --- Background Selector Modal ---
+.bg-selector-modal {
+  max-width: 620px;
+
+  h2 { margin-bottom: 20px; }
+
+  .bg-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 5px;
+
+    .bg-option {
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      aspect-ratio: 9 / 16;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+
+      .bg-name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 4px;
+      }
+
+      // Default light bg
+      &[data-bg-id="default"] {
+        background-color: var(--bg-main);
+        border-color: var(--border-color);
+        // Add a simple representation for default
+        &::before {
+          content: "Default";
+          color: var(--text-secondary);
+          font-size: 14px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+        }
+      }
+
+      &.selected {
+        border-color: var(--accent-primary);
+        border-width: 3px;
+      }
+
+      &:hover {
+        transform: scale(1.03);
+        border-color: var(--accent-secondary);
+      }
+    }
+  }
+
+  // Fix for the close button being on its own
+  .close-btn {
+    align-self: flex-end;
+    margin-top: 20px;
+  }
+}
+
